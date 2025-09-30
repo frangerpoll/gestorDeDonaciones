@@ -1,0 +1,13 @@
+h1 {
+    font-size: 40pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    background-color: black;
+    color: azure;
+    margin-top: -8px;
+    width: 100%;
+}
+
+body {
+    text-align: center;
+}
