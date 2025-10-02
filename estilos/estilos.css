@@ -44,6 +44,20 @@ p {
     width: 100%;
 }
 
+.cajaong p {
+    width: auto;                
+    margin: 5px 0;              
+    font-size: 14pt;
+    color: #F68537;
+    background-color: #D6D85D;
+}
+
+.cajaong:hover p{
+    background-color: #F68537;
+    color: #ECEDB0;
+    transition: 0.8s;
+}
+
 body {
     background-color: #ECEDB0;
     text-align: center;
@@ -52,23 +66,52 @@ body {
 
 .cajacontenedora {
     padding: 20px;
-    width: 80%;
+    width: 90%;
     background-color: #D6D85D;
-    height: 200px;
-    margin: 0 auto;
-    display: flex;
+    margin: 50px auto;
+    display: grid;
+    gap: 7px;
+    grid-template-columns: repeat(5, 1fr);
+    max-width: 1200px;
 }
 
 .cajaong {
-    width: 20%;
+    width: 70%;
+    text-align: center;
     margin: 0 auto;
-    background-color: rgb(255, 255, 255, 0.7);
-    min-width: 70px;
+    background-color: rgba(255, 255, 255, 0.7);
+    min-width: 90px;
     flex-wrap: wrap;
     padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-img {
+.cajaong:hover{
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);   
+}
+
+.cajaong img {
     width: 100%;
-    cursor: pointer;
+    height: 150px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.cajaong img:hover{
+    transform: scale(1.3);
+
+}
+
+
+@media (max-width: 1000px) {
+  .cajacontenedora {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cajacontenedora {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
