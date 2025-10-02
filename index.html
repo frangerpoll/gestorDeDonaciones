@@ -17,67 +17,68 @@
 
     <div class="cajacontenedora">
         <div class="cajaong">
-            <img src="./imgs/addalogo.png" alt="Logo ADDA">
+            <img src="./imgs/addalogo.png" alt="Logo ADDA" onclick="sumarDonacion('ADDA')">
             <p>ADDA</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 1€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/oxfamlogo.jpg" alt="Logo Intermón Oxfam">
+            <img src="./imgs/oxfamlogo.jpg" alt="Logo Intermón Oxfam" onclick="sumarDonacion('IO')">
             <p>Intermón Oxfam</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 2€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/amigosdelatierralogo.jpg" alt="Logo Amigos de la Tierra">
+            <img src="./imgs/amigosdelatierralogo.jpg" alt="Logo Amigos de la Tierra" onclick="sumarDonacion('AT')">
             <p>Amigos de la Tierra</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 3€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/manosunidaslogo.png" alt="Logo Manos Unidas">
+            <img src="./imgs/manosunidaslogo.png" alt="Logo Manos Unidas" onclick="sumarDonacion('MU')">
             <p>Manos Unidas</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 4€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/caritaslogo.png" alt="Logo Cáritas">
+            <img src="./imgs/caritaslogo.png" alt="Logo Cáritas" onclick="sumarDonacion('CAR')">
             <p>Cáritas</p>
             <p>¡Aporto 5€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/greenpeacelogo.jpg" alt="Logo Greenpeace">
+            <img src="./imgs/greenpeacelogo.jpg" alt="Logo Greenpeace" onclick="sumarDonacion('GP')">
             <p>Greenpeace</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 6€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/pacmalogo.png" alt="Logo Pacma">
+            <img src="./imgs/pacmalogo.png" alt="Logo Pacma" onclick="sumarDonacion('PACMA')">
             <p>Pacma</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 7€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/payasossinfronteraslogo.jpg" alt="Logo Payasos Sin Fronteras">
+            <img src="./imgs/payasossinfronteraslogo.jpg" alt="Logo Payasos Sin Fronteras" onclick="sumarDonacion('PAYASOS')">
             <p>Payasos Sin Fronteras</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 8€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/uniceflogo.png" alt="Logo Unicef">
+            <img src="./imgs/uniceflogo.png" alt="Logo Unicef" onclick="sumarDonacion('UNI')">
             <p>Unicef</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 9€!</p>
         </div>
         <div class="cajaong">
-            <img src="./imgs/unjuguetelogo.png" alt="Logo Un Juguete Una Ilusión">
+            <img src="./imgs/unjuguetelogo.png" alt="Logo Un Juguete Una Ilusión" onclick="sumarDonacion('JUGUETE')">
             <p>Un Juguete Una Ilusión</p>
-            <p>¡Aporto 5€!</p>
+            <p>¡Aporto 10€!</p>
         </div>
-
-
 
     </div>
 
     <h2>Tus aportaciones</h2>
-   <p>Aquí puedes ver el dinero aportadoy la cantidad de veces que has donado</p>
-   <div>
+    <p>Aquí puedes ver el dinero aportado y la cantidad de veces que has donado</p>
+
+   <div id="cajainfo">
+        <button onclick="mostrarDonaciones()">Ver mis donaciones</button>
+        <div id="resumen" class="oculto"></div>
     
-   </div>
+    </div>
 
+<script src="./scripts/scripts.js"></script>
 </body>
-
 
 </html>
