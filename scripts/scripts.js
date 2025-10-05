@@ -1,24 +1,24 @@
 let donaciones = {};
+
 const PRECIOS = {
   ADDA: 1,
-  IO: 2,
-  AT: 3,
-  MU: 4,
-  CAR: 5,
-  GP: 6,
+  IntermonOxfam: 2,
+  AmigosDeLaTierra: 3,
+  ManosUnidas: 4,
+  Caritas: 5,
+  Greenpeace: 6,
   PACMA: 7,
-  PAYASOS: 8,
-  UNI: 9,
-  JUGUETE: 10
+  PayasosSinFronteras: 8,
+  Unicef: 9,
+  UnJugueteUnaIlusion: 10
 };
 
 function sumarDonacion(nombre) {
   if (!donaciones[nombre]) {
     donaciones[nombre] = 0;
   }
-
   donaciones[nombre]++;
-  console.log(donaciones); // revisión en consola
+  console.log(donaciones);
 }
 
 function mostrarDonaciones() {
@@ -28,23 +28,21 @@ function mostrarDonaciones() {
   let totalEuros = 0;
   let totalClicks = 0;
 
-  for (let nombre in donaciones) {
+  let nombresOrdenados = Object.keys(donaciones).sort().reverse();
+
+  for (let nombre of nombresOrdenados) {
     let veces = donaciones[nombre];
-    let precio = PRECIOS[nombre];
+    let precio = PRECIOS[nombre] || 0;
 
-    if (typeof precio === "number") {
-      let subtotal = precio * veces;
-      totalEuros += subtotal;
-      totalClicks += veces;
+    totalEuros += precio * veces;
+    totalClicks += veces;
 
-      resumen.innerHTML += `<p>${nombre} --- ${veces} clic(s) --- ${subtotal} €</p>`;
-    } else {
-      resumen.innerHTML += `<p>${nombre} --- ${veces} clic(s) --- (sin precio)</p>`;
-    }
+    resumen.innerHTML += `<p>${nombre} --- ${veces} aportación/es</p>`;
   }
 
   resumen.innerHTML += `<hr>`;
   resumen.innerHTML += `<p><strong>Total donado:</strong> ${totalEuros} €</p>`;
+
   if (totalClicks > 0) {
     resumen.innerHTML += `<p><strong>Donación media:</strong> ${(totalEuros / totalClicks).toFixed(2)} €/aportación</p>`;
   }
