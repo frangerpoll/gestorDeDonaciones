@@ -13,11 +13,14 @@ const PRECIOS = {
   UnJugueteUnaIlusion: 10
 };
 
+let resumenVisible = false;
+
 function sumarDonacion(nombre) {
   const resumen = document.getElementById("resumen");
-  if (!resumen.classList.contains("oculto")) {
+  if (resumenVisible) {
     resumen.classList.add("oculto");
     resumen.innerHTML = "";
+    resumenVisible = false;
     donaciones = {};
   }
 
@@ -26,11 +29,10 @@ function sumarDonacion(nombre) {
   }
 
   donaciones[nombre]++;
-  console.log(donaciones);
 }
 
 function mostrarDonaciones() {
-  let resumen = document.getElementById("resumen");
+  const resumen = document.getElementById("resumen");
   resumen.innerHTML = "";
   let totalEuros = 0;
   let totalClicks = 0;
@@ -50,7 +52,15 @@ function mostrarDonaciones() {
     resumen.innerHTML += `<p><strong>Donación media:</strong> ${(totalEuros / totalClicks).toFixed(2)} €/ aportación</p>`;
   }
 
+  resumen.innerHTML += 
+  ` <div id=botonoculto>
+      <button id="botonEnviar">Enviar donaciones</button>
+    </div>`;
+
+  const botonEnviar = document.getElementById("botonEnviar");
+  botonEnviar.addEventListener("click", enviarDonaciones);
   resumen.classList.remove("oculto");
+  resumenVisible = true;
 }
 
 function enviarDonaciones() {
@@ -60,13 +70,14 @@ function enviarDonaciones() {
   }
 
   if (totalClicks === 0) {
-    alert("ERROR: no has realizado ninguna donación.");
+    alert("ERROR: No has realizado ninguna donación.");
     return;
   }
 
   alert("Donaciones enviadas con éxito. ¡Gracias por tu aportación!");
   donaciones = {};
-  let resumen = document.getElementById("resumen");
+  const resumen = document.getElementById("resumen");
   resumen.innerHTML = "";
   resumen.classList.add("oculto");
+  resumenVisible = false;
 }

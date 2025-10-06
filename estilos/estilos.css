@@ -149,6 +149,19 @@ button:hover {
     background-color: #D6D85D;
     color: #F68537;
     transform: scale(1.05);
+    font-weight: 700;
+    border: #F68537 solid 3px;
+}
+
+button:active {
+    transform: scale(0.80);
+}
+
+#botonoculto{
+    text-align:center; 
+    margin: 0 auto;
+    margin-top: 20px;
+    align-items: center;
 }
 
 @media (max-width: 1000px) {
