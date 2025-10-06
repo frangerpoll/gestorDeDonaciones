@@ -52,7 +52,7 @@ p {
     background-color: #D6D85D;
 }
 
-.cajaong:hover p{
+.cajaong:hover p {
     background-color: #F68537;
     color: #ECEDB0;
     transition: 0.8s;
@@ -87,7 +87,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.cajaong:hover{
+.cajaong:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35);   
 }
 
@@ -98,16 +98,16 @@ body {
     transition: transform 0.3s ease;
 }
 
-.cajaong img:hover{
+.cajaong img:hover {
     transform: scale(1.3);
 }
 
-.cajaong img:active{
+.cajaong img:active {
     transform: scale(1);
     filter: invert(1); 
 }
 
-#cajainfo{
+#cajainfo {
     background-color: #D6D85D;
     width: 80%;
     max-width: 800px;
@@ -118,7 +118,7 @@ body {
     padding: 30px;
 }
 
-#resumen{
+#resumen {
     background: #F68537;
     color: #D6D85D;
     font-weight: 700;
@@ -129,11 +129,11 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.oculto{
+.oculto {
     display: none;
 }
 
-button{
+button {
     margin: 0px auto;
     padding: 10px 20px;
     font-size: 16pt;
