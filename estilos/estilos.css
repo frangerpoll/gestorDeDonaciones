@@ -148,20 +148,31 @@ button {
 button:hover {
     background-color: #D6D85D;
     color: #F68537;
-    transform: scale(1.05);
+    transform: scale(1.0);
     font-weight: 700;
     border: #F68537 solid 3px;
 }
 
 button:active {
-    transform: scale(0.80);
+    transform: scale(0.90);
 }
 
-#botonoculto{
+#botonoculto {
     text-align:center; 
     margin: 0 auto;
     margin-top: 20px;
     align-items: center;
+    
+}
+
+#botonoculto button {
+    background-color: #EAD8A4;
+    color: #F68537;
+}
+
+#botonoculto button:hover {
+    background-color:#D6D85D;
+    color: #F68537;
 }
 
 @media (max-width: 1000px) {

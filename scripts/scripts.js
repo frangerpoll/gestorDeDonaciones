@@ -1,25 +1,25 @@
-var NOMBRES = [
+const NOMBRES = [
   "ADDA", "IntermonOxfam", "AmigosDeLaTierra", "ManosUnidas", "Caritas", "Greenpeace", "PACMA", "PayasosSinFronteras", "Unicef", "UnJugueteUnaIlusion"
 ];
 
-var PRECIOS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const PRECIOS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-var donaciones = new Array(NOMBRES.length).fill(0);
-var resumenVisible = false;
+let donaciones = new Array(NOMBRES.length).fill(0);
+let resumenVisible = false;
 
 function sumarDonacion(nombre) {
-  var resumen = document.getElementById("resumen");
+  const resumen = document.getElementById("resumen");
 
   if (resumenVisible) {
     resumen.classList.add("oculto");
     resumen.innerHTML = "";
     resumenVisible = false;
-    for (var i = 0; i < donaciones.length; i++) {
+    for (let i = 0; i < donaciones.length; i++) {
       donaciones[i] = 0;
     }
   }
 
-  var indice = NOMBRES.indexOf(nombre);
+  const indice = NOMBRES.indexOf(nombre);
 
   if (indice !== -1) {
     donaciones[indice]++;
@@ -29,17 +29,17 @@ function sumarDonacion(nombre) {
 }
 
 function mostrarDonaciones() {
-  var resumen = document.getElementById("resumen");
+  const resumen = document.getElementById("resumen");
   resumen.innerHTML = "";
-  var totalEuros = 0;
-  var totalClicks = 0;
-  var resumenArray = [];
+  let totalEuros = 0;
+  let totalClicks = 0;
+  const resumenArray = [];
 
-  for (var i = 0; i < NOMBRES.length; i++) {
+  for (let i = 0; i < NOMBRES.length; i++) {
     if (donaciones[i] > 0) {
-      var nombre = NOMBRES[i];
-      var veces = donaciones[i];
-      var precio = PRECIOS[i];
+      const nombre = NOMBRES[i];
+      const veces = donaciones[i];
+      const precio = PRECIOS[i];
       totalEuros += precio * veces;
       totalClicks += veces;
       resumenArray.push({ nombre: nombre, veces: veces });
@@ -50,7 +50,7 @@ function mostrarDonaciones() {
     return b.nombre.localeCompare(a.nombre);
   });
 
-  for (var j = 0; j < resumenArray.length; j++) {
+  for (let j = 0; j < resumenArray.length; j++) {
     resumen.innerHTML +=
       "<p>" +
       resumenArray[j].nombre +
@@ -74,7 +74,7 @@ function mostrarDonaciones() {
       '<button id="botonEnviar">Enviar donaciones</button>' +
     "</div>";
 
-  var botonEnviar = document.getElementById("botonEnviar");
+  const botonEnviar = document.getElementById("botonEnviar");
   botonEnviar.addEventListener("click", enviarDonaciones);
 
   resumen.classList.remove("oculto");
@@ -82,8 +82,8 @@ function mostrarDonaciones() {
 }
 
 function enviarDonaciones() {
-  var totalClicks = 0;
-  for (var i = 0; i < donaciones.length; i++) {
+  let totalClicks = 0;
+  for (let i = 0; i < donaciones.length; i++) {
     totalClicks += donaciones[i];
   }
 
@@ -94,11 +94,11 @@ function enviarDonaciones() {
 
   alert("Donaciones enviadas con éxito. ¡Gracias por tu aportación!");
 
-  for (var i = 0; i < donaciones.length; i++) {
+  for (let i = 0; i < donaciones.length; i++) {
     donaciones[i] = 0;
   }
 
-  var resumen = document.getElementById("resumen");
+  const resumen = document.getElementById("resumen");
   resumen.innerHTML = "";
   resumen.classList.add("oculto");
   resumenVisible = false;
