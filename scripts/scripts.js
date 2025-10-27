@@ -69,37 +69,6 @@ function mostrarDonaciones() {
       " €/aportación</p>";
   }
 
-  resumen.innerHTML +=
-    '<div id="botonoculto">' +
-      '<button id="botonEnviar">Enviar donaciones</button>' +
-    "</div>";
-
-  const botonEnviar = document.getElementById("botonEnviar");
-  botonEnviar.addEventListener("click", enviarDonaciones);
-
-  resumen.classList.remove("oculto");
+   resumen.classList.remove("oculto");
   resumenVisible = true;
-}
-
-function enviarDonaciones() {
-  let totalClicks = 0;
-  for (let i = 0; i < donaciones.length; i++) {
-    totalClicks += donaciones[i];
-  }
-
-  if (totalClicks === 0) {
-    alert("ERROR: No has realizado ninguna donación.");
-    return;
-  }
-
-  alert("Donaciones enviadas con éxito. ¡Gracias por tu aportación!");
-
-  for (let i = 0; i < donaciones.length; i++) {
-    donaciones[i] = 0;
-  }
-
-  const resumen = document.getElementById("resumen");
-  resumen.innerHTML = "";
-  resumen.classList.add("oculto");
-  resumenVisible = false;
 }
