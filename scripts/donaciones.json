@@ -1,0 +1,34 @@
+{
+    "organizaciones": [
+        {
+            "id": 1,
+            "nombre": "UNICEF",
+            "acogida": false,
+            "rangoEdad": "infancia"
+        },
+        {
+            "id": 2,
+            "nombre": "WWF",
+            "multiraza": true,
+            "ambito": "internacional"
+        }
+    ],
+    "tramiteDonacion": [
+        {
+            "id": 1,
+            "fecha": "11/2025",
+            "donaciones": [
+                {
+                    "idOrganizacion": 1,
+                    "importeTotal": 45.78,
+                    "numDonaciones": 5
+                },
+                {
+                    "idOrganizacion": 2,
+                    "importeTotal": 37.23,
+                    "numDonaciones": 2
+                }
+            ]
+        }
+    ]
+}
