@@ -1,34 +1,109 @@
 {
-    "organizaciones": [
-        {
+    "organizaciones": [{
             "id": 1,
-            "nombre": "UNICEF",
-            "acogida": false,
-            "rangoEdad": "infancia"
+            "nombre": "ADDA",
+            "tipo": "animales",
+            "multiraza": true,
+            "ambito": "internacional",
+            "logo": "./imgs/addalogo.png",
+            "descripcion": "ADDA trabaja en la defensa y protección de los animales a nivel nacional."
         },
         {
             "id": 2,
-            "nombre": "WWF",
-            "multiraza": true,
-            "ambito": "internacional"
-        }
-    ],
-    "tramiteDonacion": [
+            "nombre": "IntermonOxfam",
+            "tipo": "personas",
+            "acogida": false,
+            "rangoEdad": "infancia",
+            "logo": "./imgs/oxfamlogo.jpg",
+            "descripcion": "Intermón Oxfam lucha contra la desigualdad y la pobreza en el mundo."
+        },
         {
-            "id": 1,
-            "fecha": "11/2025",
-            "donaciones": [
-                {
-                    "idOrganizacion": 1,
-                    "importeTotal": 45.78,
-                    "numDonaciones": 5
-                },
-                {
-                    "idOrganizacion": 2,
-                    "importeTotal": 37.23,
-                    "numDonaciones": 2
-                }
-            ]
+            "id": 3,
+            "nombre": "AmigosDeLaTierra",
+            "tipo": "medioambiente",
+            "multiespecie": true,
+            "ambito": "nacional",
+            "logo": "./imgs/amigosdelatierralogo.jpg",
+            "descripcion": "Amigos de la Tierra promueve la justicia ambiental y el respeto al planeta."
+        },
+        {
+            "id": 4,
+            "nombre": "ManosUnidas",
+            "tipo": "personas",
+            "acogida": false,
+            "rangoEdad": "infancia",
+            "logo": "./imgs/manosunidaslogo.png",
+            "descripcion": "Manos Unidas combate el hambre, la pobreza y la desigualdad en el mundo."
+        },
+        {
+            "id": 5,
+            "nombre": "Caritas",
+            "tipo": "personas",
+            "acogida": true,
+            "rangoEdad": "infancia",
+            "logo": "./imgs/caritaslogo.png",
+            "descripcion": "Cáritas ayuda a personas en situación de vulnerabilidad y exclusión social."
+        },
+        {
+            "id": 6,
+            "nombre": "Greenpeace",
+            "tipo": "medioambiente",
+            "multiespecie": true,
+            "ambito": "nacional",
+            "logo": "./imgs/greenpeacelogo.jpg",
+            "descripcion": "Greenpeace actúa para proteger el medioambiente y fomentar la paz."
+        },
+        {
+            "id": 7,
+            "nombre": "PACMA",
+            "tipo": "animales",
+            "multiraza": true,
+            "ambito": "internacional",
+            "logo": "./imgs/pacmalogo.png",
+            "descripcion": "PACMA defiende los derechos de los animales y promueve leyes de protección."
+        },
+        {
+            "id": 8,
+            "nombre": "PayasosSinFronteras",
+            "tipo": "personas",
+            "acogida": false,
+            "rangoEdad": "infancia",
+            "logo": "/imgs/payasossinfronteraslogo.jpg",
+            "descripcion": "Payasos Sin Fronteras lleva alegría y esperanza a zonas de conflicto y exclusión."
+        },
+        {
+            "id": 9,
+            "nombre": "Unicef",
+            "tipo": "personas",
+            "acogida": false,
+            "rangoEdad": "infancia",
+            "logo": "./imgs/uniceflogo.png",
+            "descripcion": "UNICEF trabaja por los derechos y el bienestar de la infancia en todo el mundo."
+        },
+        {
+            "id": 10,
+            "nombre": "UnJugueteUnaIlusion",
+            "tipo": "personas",
+            "acogida": false,
+            "rangoEdad": "infancia",
+            "logo": "./imgs/unjuguetelogo.png",
+            "descripcion": "Un Juguete, Una Ilusión reparte juguetes a niños en situación vulnerable."
         }
-    ]
+
+    ],
+    "tramiteDonacion": [{
+        "id": 1,
+        "fecha": "11/2025",
+        "donaciones": [{
+                "idOrganizacion": 1,
+                "importeTotal": 45.78,
+                "numDonaciones": 5
+            },
+            {
+                "idOrganizacion": 2,
+                "importeTotal": 37.23,
+                "numDonaciones": 2
+            }
+        ]
+    }]
 }
