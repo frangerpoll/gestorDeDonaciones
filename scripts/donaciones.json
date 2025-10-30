@@ -20,8 +20,8 @@
         {
             "id": 3,
             "nombre": "AmigosDeLaTierra",
-            "tipo": "medioambiente",
-            "multiespecie": true,
+            "tipo": "animales",
+            "multiraza": true,
             "ambito": "nacional",
             "logo": "./imgs/amigosdelatierralogo.jpg",
             "descripcion": "Amigos de la Tierra promueve la justicia ambiental y el respeto al planeta."
@@ -47,8 +47,8 @@
         {
             "id": 6,
             "nombre": "Greenpeace",
-            "tipo": "medioambiente",
-            "multiespecie": true,
+            "tipo": "animales",
+            "multiraza": true,
             "ambito": "nacional",
             "logo": "./imgs/greenpeacelogo.jpg",
             "descripcion": "Greenpeace actúa para proteger el medioambiente y fomentar la paz."
