@@ -35,7 +35,7 @@ function generarCajasONG(lista) {
         const input = document.createElement("input");
         input.type = "number";
         input.min = "1";
-        input.placeholder = "€ a donar";
+        input.placeholder = "Euros a donar";
         input.id = `input_${org.id}`;
 
         div.appendChild(img);

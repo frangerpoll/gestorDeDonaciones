@@ -9,75 +9,28 @@
 </head>
 
 <body>
+
+<header>
     <h1>GESTOR DE DONACIONES</h1>
     <h2>Colabora con nuestras ONGs</h2>
-    <p>Con una pequeña aportación que va de 1€ a 10€, puedes salvar muchas vidas</p>
-    <h3>Entidades colaboradoras</h3>
-    <p>Haz click sobre el logo de las causas benéficas a la que quieres ayudar con tu aportación</p>
+    <p>Una vez introducida tu aportación, haz click sobre el logo de la causa benéfica o causas benéficas a las que quieres ayudar.</p>
+</header>
 
-    <div class="cajacontenedora">
-        <div class="cajaong">
-            <img src="./imgs/addalogo.png" alt="Logo ADDA" onclick="sumarDonacion('ADDA')">
-            <p>ADDA</p>
-            <p>¡Aporto 1€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/oxfamlogo.jpg" alt="Logo Intermón Oxfam" onclick="sumarDonacion('IntermonOxfam')">
-            <p>Intermón Oxfam</p>
-            <p>¡Aporto 2€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/amigosdelatierralogo.jpg" alt="Logo Amigos de la Tierra" onclick="sumarDonacion('AmigosDeLaTierra')">
-            <p>Amigos de la Tierra</p>
-            <p>¡Aporto 3€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/manosunidaslogo.png" alt="Logo Manos Unidas" onclick="sumarDonacion('ManosUnidas')">
-            <p>Manos Unidas</p>
-            <p>¡Aporto 4€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/caritaslogo.png" alt="Logo Cáritas" onclick="sumarDonacion('Caritas')">
-            <p>Cáritas</p>
-            <p>¡Aporto 5€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/greenpeacelogo.jpg" alt="Logo Greenpeace" onclick="sumarDonacion('Greenpeace')">
-            <p>Greenpeace</p>
-            <p>¡Aporto 6€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/pacmalogo.png" alt="Logo Pacma" onclick="sumarDonacion('PACMA')">
-            <p>Pacma</p>
-            <p>¡Aporto 7€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/payasossinfronteraslogo.jpg" alt="Logo Payasos Sin Fronteras" onclick="sumarDonacion('PayasosSinFronteras')">
-            <p>Payasos Sin Fronteras</p>
-            <p>¡Aporto 8€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/uniceflogo.png" alt="Logo Unicef" onclick="sumarDonacion('Unicef')">
-            <p>Unicef</p>
-            <p>¡Aporto 9€!</p>
-        </div>
-        <div class="cajaong">
-            <img src="./imgs/unjuguetelogo.png" alt="Logo Un Juguete Una Ilusión" onclick="sumarDonacion('UnJugueteUnaIlusion')">
-            <p>Un Juguete Una Ilusión</p>
-            <p>¡Aporto 10€!</p>
-        </div>
+<main class="contenedor-principal">
+    <section id="zona-ongs" class="cajacontenedora"></section>
 
-    </div>
+    <aside id="cajainfo">
+        <h2>Tus aportaciones</h2>
+        <p>Aquí puedes ver el dinero aportado y la cantidad de veces que has donado.</p>
+        <div id="resumen"></div>
+    </aside>
+</main>
 
-    <h2>Tus aportaciones</h2>
-    <p>Aquí puedes ver el dinero aportado y la cantidad de veces que has donado</p>
+<section id="botonoculto">
+    <h3>Finaliza tu trámite de donaciones</h3>
+    <button onclick="finalizarTramite()">Finalizar Donaciones</button>
+</section>
 
-    <div id="cajainfo">
-        <button onclick="mostrarDonaciones()">Ver mis donaciones</button>
-        <div id="resumen" class="oculto"></div>
-    </div>
-
-    <script src="./scripts/scripts.js"></script>
+<script src="./scripts/scripts.js"></script>
 </body>
-
 </html>
