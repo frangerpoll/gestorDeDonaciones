@@ -1,106 +1,98 @@
-const URL_BASE = "http://localhost:3000";
-let organizaciones = [];
+const API_URL = "http://localhost:3000";
+const contenedorONGs = document.querySelector(".cajacontenedora");
+const resumen = document.getElementById("resumen");
 let donaciones = [];
 
 document.addEventListener("DOMContentLoaded", () => {
-    cargarOrganizaciones();
+  fetch(`${API_URL}/organizaciones`)
+    .then(res => res.json())
+    .then(data => mostrarONGs(data))
+    .catch(err => console.error("Error al cargar las ONGs:", err));
 });
 
-async function cargarOrganizaciones() {
-    try {
-        const resp = await fetch(`${URL_BASE}/organizaciones`);
-        if (!resp.ok) throw new Error("Error al cargar las organizaciones");
-        organizaciones = await resp.json();
-        generarCajasONG(organizaciones);
-    } catch (err) {
-        console.error("Error al obtener organizaciones:", err);
-    }
-}
-
-function generarCajasONG(lista) {
-    const contenedor = document.querySelector(".cajacontenedora");
-    contenedor.innerHTML = "";
-    lista.forEach(org => {
-        const div = document.createElement("div");
-        div.classList.add("cajaong");
-
-        const img = document.createElement("img");
-        img.src = org.logo;
-        img.alt = org.nombre;
-        img.onclick = () => sumarDonacion(org.id);
-
-        const p = document.createElement("p");
-        p.textContent = org.nombre;
-
-        const input = document.createElement("input");
-        input.type = "number";
-        input.min = "1";
-        input.placeholder = "Euros a donar";
-        input.id = `input_${org.id}`;
-
-        div.appendChild(img);
-        div.appendChild(p);
-        div.appendChild(input);
-        contenedor.appendChild(div);
+function mostrarONGs(lista) {
+  lista.forEach(org => {
+    const card = document.createElement("div");
+    card.classList.add("cajaong");
+    card.innerHTML = `
+      <img src="${org.logo}" alt="Logo ${org.nombre}" data-id="${org.id}">
+      <p>${org.nombre}</p>
+      <input type="number" id="donacion-${org.id}" min="1" max="100" placeholder="€ a donar">
+    `;
+    card.querySelector("img").addEventListener("click", () => {
+      const cantidad = parseFloat(document.getElementById(`donacion-${org.id}`).value);
+      if (!cantidad || cantidad <= 0) {
+        alert("Por favor, introduce una cantidad mayor a 0€ antes de donar.");
+        return;
+      }
+      registrarDonacion(org, cantidad);
     });
+    contenedorONGs.appendChild(card);
+  });
 }
 
-function sumarDonacion(id) {
-    const org = organizaciones.find(o => o.id === id);
-    const input = document.getElementById(`input_${id}`);
-    const cantidad = parseFloat(input.value);
+function registrarDonacion(organizacion, cantidad) {
+  const donacionExistente = donaciones.find(d => d.idOrganizacion === organizacion.id);
+  if (donacionExistente) {
+    donacionExistente.importeTotal += cantidad;
+    donacionExistente.numDonaciones += 1;
+  } else {
+    donaciones.push({
+      idOrganizacion: organizacion.id,
+      nombre: organizacion.nombre,
+      importeTotal: cantidad,
+      numDonaciones: 1
+    });
+  }
+  actualizarResumen(organizacion.id);
+}
 
-    if (!org || isNaN(cantidad) || cantidad <= 0) {
-        alert("Introduce una cantidad válida");
-        return;
+function actualizarResumen(idResaltado) {
+  resumen.innerHTML = "";
+  donaciones.forEach(don => {
+    const linea = document.createElement("div");
+    linea.textContent = `${don.nombre}: ${don.importeTotal.toFixed(2)}€ (${don.numDonaciones} donación/es)`;
+    linea.style.padding = "8px 10px";
+    linea.style.borderRadius = "6px";
+    linea.style.marginBottom = "5px";
+    if (don.idOrganizacion === idResaltado) {
+      linea.style.backgroundColor = "#F68537";
+      linea.style.color = "#ECEDB0";
+    } else {
+      linea.style.backgroundColor = "#D6D85D";
+      linea.style.color = "#F68537";
     }
-
-    donaciones.push({ idOrganizacion: id, nombre: org.nombre, cantidad });
-    actualizarResumen(org.nombre, cantidad);
-}
-
-function actualizarResumen(nombre, cantidad) {
-    const resumen = document.getElementById("resumen");
-
-    const linea = document.createElement("p");
-    linea.textContent = `${nombre} — ${cantidad.toFixed(2)} €`;
     resumen.appendChild(linea);
-
-    const todas = resumen.querySelectorAll("p");
-    todas.forEach(p => p.classList.remove("activo"));
-    [...todas].filter(p => p.textContent.startsWith(nombre)).forEach(p => p.classList.add("activo"));
+  });
 }
 
-document.getElementById("finalizarBtn").addEventListener("click", async() => {
-    if (donaciones.length === 0) {
-        alert("No hay donaciones registradas");
-        return;
-    }
-
-    const fecha = new Date().toLocaleString("es-ES");
-    const tramite = {
-        fecha,
-        donaciones: donaciones.map(d => ({
-            idOrganizacion: d.idOrganizacion,
-            importeTotal: d.cantidad,
-            numDonaciones: 1
-        }))
-    };
-
-    try {
-        const resp = await fetch(`${URL_BASE}/tramiteDonacion`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(tramite)
-        });
-        if (!resp.ok) throw new Error("Error al guardar el trámite");
-
-        const data = await resp.json();
-        document.getElementById("detalleTramite").value = JSON.stringify(data, null, 2);
-        donaciones = [];
-        document.getElementById("resumen").innerHTML = "";
-        alert("¡Donaciones registradas correctamente!");
-    } catch (err) {
-        console.error("Error al guardar en JSON Server:", err);
-    }
-});
+function finalizarTramite() {
+  if (donaciones.length === 0) {
+    alert("No has realizado ninguna donación.");
+    return;
+  }
+  const tramite = {
+    fecha: new Date().toLocaleDateString("es-ES", { month: "2-digit", year: "numeric" }),
+    donaciones: donaciones.map(d => ({
+      idOrganizacion: d.idOrganizacion,
+      importeTotal: d.importeTotal,
+      numDonaciones: d.numDonaciones
+    }))
+  };
+  fetch(`${API_URL}/tramiteDonacion`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(tramite)
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Error al guardar el trámite");
+      return res.json();
+    })
+    .then(() => {
+      alert("✅ Trámite guardado correctamente en el servidor.");
+      donaciones = [];
+      resumen.innerHTML = "";
+      document.querySelectorAll("input[type='number']").forEach(input => (input.value = ""));
+    })
+    .catch(err => console.error("Error:", err));
+}
