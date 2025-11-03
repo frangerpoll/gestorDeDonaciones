@@ -1,98 +1,215 @@
-const API_URL = "http://localhost:3000";
-const contenedorONGs = document.querySelector(".cajacontenedora");
-const resumen = document.getElementById("resumen");
+const RUTA_JSON = "http://localhost:3000/organizaciones";
+let organizaciones = [];
 let donaciones = [];
+let ultimaOng = null;
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetch(`${API_URL}/organizaciones`)
-    .then(res => res.json())
-    .then(data => mostrarONGs(data))
-    .catch(err => console.error("Error al cargar las ONGs:", err));
-});
-
-function mostrarONGs(lista) {
-  lista.forEach(org => {
-    const card = document.createElement("div");
-    card.classList.add("cajaong");
-    card.innerHTML = `
-      <img src="${org.logo}" alt="Logo ${org.nombre}" data-id="${org.id}">
-      <p>${org.nombre}</p>
-      <input type="number" id="donacion-${org.id}" min="1" max="100" placeholder="€ a donar">
-    `;
-    card.querySelector("img").addEventListener("click", () => {
-      const cantidad = parseFloat(document.getElementById(`donacion-${org.id}`).value);
-      if (!cantidad || cantidad <= 0) {
-        alert("Por favor, introduce una cantidad mayor a 0€ antes de donar.");
-        return;
-      }
-      registrarDonacion(org, cantidad);
-    });
-    contenedorONGs.appendChild(card);
-  });
+function cargarDatosDesdeJson() {
+    fetch(RUTA_JSON)
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            organizaciones = data;
+            mostrarOrganizaciones();
+        })
+        .catch(error => console.error("Error al cargar JSON:", error));
 }
 
-function registrarDonacion(organizacion, cantidad) {
-  const donacionExistente = donaciones.find(d => d.idOrganizacion === organizacion.id);
-  if (donacionExistente) {
-    donacionExistente.importeTotal += cantidad;
-    donacionExistente.numDonaciones += 1;
-  } else {
-    donaciones.push({
-      idOrganizacion: organizacion.id,
-      nombre: organizacion.nombre,
-      importeTotal: cantidad,
-      numDonaciones: 1
-    });
-  }
-  actualizarResumen(organizacion.id);
-}
+function mostrarOrganizaciones() {
+    const contenedor = document.querySelector(".cajacontenedora");
+    contenedor.innerHTML = "";
 
-function actualizarResumen(idResaltado) {
-  resumen.innerHTML = "";
-  donaciones.forEach(don => {
-    const linea = document.createElement("div");
-    linea.textContent = `${don.nombre}: ${don.importeTotal.toFixed(2)}€ (${don.numDonaciones} donación/es)`;
-    linea.style.padding = "8px 10px";
-    linea.style.borderRadius = "6px";
-    linea.style.marginBottom = "5px";
-    if (don.idOrganizacion === idResaltado) {
-      linea.style.backgroundColor = "#F68537";
-      linea.style.color = "#ECEDB0";
-    } else {
-      linea.style.backgroundColor = "#D6D85D";
-      linea.style.color = "#F68537";
+    for (let i = 0; i < organizaciones.length; i++) {
+        const org = organizaciones[i];
+
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("cajaong");
+
+        const imagen = document.createElement("img");
+        imagen.src = org.logo;
+        imagen.alt = org.nombre;
+        imagen.onclick = function() {
+            sumarDonacion(org.nombre);
+        };
+
+        const nombre = document.createElement("p");
+        nombre.textContent = org.nombre;
+
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "1";
+        input.max = "100";
+        input.placeholder = "€ a donar";
+        input.id = `don_${org.nombre}`;
+
+        tarjeta.appendChild(imagen);
+        tarjeta.appendChild(nombre);
+        tarjeta.appendChild(input);
+
+        contenedor.appendChild(tarjeta);
     }
-    resumen.appendChild(linea);
-  });
+}
+
+function sumarDonacion(nombre) {
+    const input = document.getElementById(`don_${nombre}`);
+    const cantidad = parseFloat(input.value);
+
+    if (isNaN(cantidad) || cantidad <= 0) {
+        alert("Introduce una cantidad válida para donar.");
+        return;
+    }
+
+    const nuevaDonacion = { nombre: nombre, cantidad: cantidad };
+    donaciones.push(nuevaDonacion);
+
+    mostrarDonaciones(nombre);
+    input.value = "";
+}
+
+function mostrarDonaciones(nombre) {
+    const resumen = document.getElementById("resumen");
+    resumen.innerHTML = "";
+
+    for (let i = 0; i < donaciones.length; i++) {
+        const don = donaciones[i];
+        const linea = document.createElement("div");
+        linea.textContent = don.nombre + " — " + don.cantidad.toFixed(2) + " €";
+
+        if (don.nombre === nombre) {
+            linea.classList.add("destacado");
+        }
+
+        resumen.appendChild(linea);
+    }
+
+    ultimaOng = nombre;
 }
 
 function finalizarTramite() {
-  if (donaciones.length === 0) {
-    alert("No has realizado ninguna donación.");
-    return;
-  }
-  const tramite = {
-    fecha: new Date().toLocaleDateString("es-ES", { month: "2-digit", year: "numeric" }),
-    donaciones: donaciones.map(d => ({
-      idOrganizacion: d.idOrganizacion,
-      importeTotal: d.importeTotal,
-      numDonaciones: d.numDonaciones
-    }))
-  };
-  fetch(`${API_URL}/tramiteDonacion`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(tramite)
-  })
-    .then(res => {
-      if (!res.ok) throw new Error("Error al guardar el trámite");
-      return res.json();
-    })
-    .then(() => {
-      alert("✅ Trámite guardado correctamente en el servidor.");
-      donaciones = [];
-      resumen.innerHTML = "";
-      document.querySelectorAll("input[type='number']").forEach(input => (input.value = ""));
-    })
-    .catch(err => console.error("Error:", err));
+    if (donaciones.length === 0) {
+        alert("No hay donaciones registradas.");
+        return;
+    }
+
+    const resumenFinal = document.createElement("div");
+    resumenFinal.id = "resumen-final";
+
+    const fecha = new Date();
+    const dia = String(fecha.getDate()).padStart(2, "0");
+    const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+    const anio = fecha.getFullYear();
+    const hora = String(fecha.getHours()).padStart(2, "0");
+    const minutos = String(fecha.getMinutes()).padStart(2, "0");
+    const segundos = String(fecha.getSeconds()).padStart(2, "0");
+
+    const fechaTexto = `Fecha de compra: ${dia}/${mes}/${anio} - ${hora}:${minutos}:${segundos}`;
+
+    const titulo = document.createElement("p");
+    titulo.textContent = fechaTexto;
+    resumenFinal.appendChild(titulo);
+
+    const agrupadas = agruparDonaciones();
+
+    let totalFinal = 0;
+    let totalDonaciones = 0;
+
+    for (let i = 0; i < agrupadas.length; i++) {
+        const d = agrupadas[i];
+        totalFinal += d.importeTotal;
+        totalDonaciones += d.numDonaciones;
+
+        const linea = document.createElement("p");
+        linea.textContent = `${d.nombre} ---- ${d.numDonaciones} donaciones --- ${d.aporteMedio.toFixed(2)}€ -- ${d.importeTotal.toFixed(2)}€`;
+        resumenFinal.appendChild(linea);
+    }
+
+    const totalLinea = document.createElement("p");
+    totalLinea.textContent = `Aporte total: ${Math.floor(totalFinal * 100) / 100} €`;
+    resumenFinal.appendChild(totalLinea);
+
+    const mediaLinea = document.createElement("p");
+    const media = totalFinal / totalDonaciones;
+    mediaLinea.textContent = `Aporte medio: ${media.toFixed(3)} €/donación`;
+    mediaLinea.style.textAlign = "center";
+    resumenFinal.appendChild(mediaLinea);
+
+    document.getElementById("botonoculto").appendChild(resumenFinal);
+    guardarTramiteEnJson(agrupadas, `${dia}/${mes}/${anio}, ${hora}:${minutos}:${segundos}`);
 }
+
+function guardarTramiteEnJson(donacionesAgrupadas, fechaCompleta) {
+    const idTramite = Math.random().toString(16).slice(2, 6);
+
+    const donacionesFormateadas = [];
+    for (let i = 0; i < donacionesAgrupadas.length; i++) {
+        const d = donacionesAgrupadas[i];
+        donacionesFormateadas.push({
+            nombre: d.nombre,
+            importeTotal: d.importeTotal,
+            numDonaciones: d.numDonaciones
+        });
+    }
+
+    const nuevoTramite = {
+        id: idTramite,
+        fecha: fechaCompleta,
+        donaciones: donacionesFormateadas
+    };
+
+    fetch("http://localhost:3000/tramiteDonacion", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(nuevoTramite)
+        })
+        .then(respuesta => respuesta.json())
+        .then(data => {
+            console.log("Trámite guardado correctamente:", data);
+            alert("¡Donaciones guardadas con éxito! Gracias por tu colaboración.");
+            donaciones = [];
+            document.getElementById("resumen").innerHTML = "";
+        })
+        .catch(error => {
+            console.error("Error al guardar el trámite:", error);
+            alert("Hubo un error al guardar las donaciones. Por favor, inténtalo de nuevo.");
+        });
+}
+
+function agruparDonaciones() {
+    const resultado = [];
+
+    for (let i = 0; i < donaciones.length; i++) {
+        const actual = donaciones[i];
+        let encontrada = false;
+
+        for (let j = 0; j < resultado.length; j++) {
+            if (resultado[j].nombre === actual.nombre) {
+                resultado[j].importeTotal += actual.cantidad;
+                resultado[j].numDonaciones += 1;
+                encontrada = true;
+                break;
+            }
+        }
+
+        if (!encontrada) {
+            resultado.push({
+                nombre: actual.nombre,
+                importeTotal: actual.cantidad,
+                numDonaciones: 1
+            });
+        }
+    }
+
+    for (let i = 0; i < resultado.length; i++) {
+        resultado[i].aporteMedio = resultado[i].importeTotal / resultado[i].numDonaciones;
+    }
+
+    resultado.sort(function(a, b) {
+        return b.nombre.localeCompare(a.nombre);
+    });
+
+    return resultado;
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    cargarDatosDesdeJson();
+});

@@ -118,7 +118,7 @@ p {
     background-color: #D6D85D;
     padding: 30px 10px;
     overflow-y: auto;
-    height: 100%;
+    height: 100vh;
     box-sizing: border-box;
     border-radius: 8px;
 }
@@ -167,6 +167,26 @@ p {
     background-color: #F68537;
     color: #D6D85D;
     transform: scale(1.05);
+}
+
+.destacado {
+    background-color: #F68537 !important;
+    color: #ECEDB0 !important;
+    transition: 0.5s;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+#resumen-final {
+    background-color: #EAD8A4;
+    color: #F68537;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    line-height: 1.8em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 1000px) {

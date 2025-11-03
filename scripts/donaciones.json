@@ -163,6 +163,137 @@
           "numDonaciones": 1
         }
       ]
+    },
+    {
+      "id": "0670",
+      "fecha": "11/2025",
+      "donaciones": [
+        {
+          "idOrganizacion": "3",
+          "importeTotal": 90,
+          "numDonaciones": 18
+        },
+        {
+          "idOrganizacion": "8",
+          "importeTotal": 10,
+          "numDonaciones": 2
+        },
+        {
+          "idOrganizacion": "7",
+          "importeTotal": 10,
+          "numDonaciones": 2
+        },
+        {
+          "idOrganizacion": "2",
+          "importeTotal": 5,
+          "numDonaciones": 1
+        }
+      ]
+    },
+    {
+      "id": "d281",
+      "fecha": "11/2025",
+      "donaciones": [
+        {
+          "idOrganizacion": "3",
+          "importeTotal": 16,
+          "numDonaciones": 2
+        },
+        {
+          "idOrganizacion": "4",
+          "importeTotal": 8,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 31,
+          "numDonaciones": 4
+        },
+        {
+          "nombre": "ADDA",
+          "importeTotal": 9,
+          "numDonaciones": 3
+        },
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 4,
+          "numDonaciones": 1
+        }
+      ]
+    },
+    {
+      "id": "f4ef",
+      "fecha": "3/11/2025, 10:40:42",
+      "donaciones": [
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 8,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 24,
+          "numDonaciones": 6
+        },
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 7,
+          "numDonaciones": 2
+        }
+      ]
+    },
+    {
+      "id": "357e",
+      "fecha": "03/11/2025, 10:49:25",
+      "donaciones": [
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 13,
+          "numDonaciones": 5
+        },
+        {
+          "nombre": "ADDA",
+          "importeTotal": 6,
+          "numDonaciones": 3
+        }
+      ]
+    },
+    {
+      "id": "42af",
+      "fecha": "03/11/2025, 10:50:23",
+      "donaciones": [
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 3,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 6,
+          "numDonaciones": 2
+        }
+      ]
+    },
+    {
+      "id": "cfce",
+      "fecha": "03/11/2025, 10:53:11",
+      "donaciones": [
+        {
+          "nombre": "PayasosSinFronteras",
+          "importeTotal": 8,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 4,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 4,
+          "numDonaciones": 1
+        }
+      ]
     }
   ]
 }
