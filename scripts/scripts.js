@@ -5,7 +5,7 @@ let ultimaOng = null;
 
 function cargarDatosDesdeJson() {
     fetch(RUTA_JSON)
-        .then(respuesta => respuesta.json())
+        .then(res => res.json())
         .then(data => {
             organizaciones = data;
             mostrarOrganizaciones();
@@ -17,18 +17,14 @@ function mostrarOrganizaciones() {
     const contenedor = document.querySelector(".cajacontenedora");
     contenedor.innerHTML = "";
 
-    for (let i = 0; i < organizaciones.length; i++) {
-        const org = organizaciones[i];
-
+    organizaciones.forEach(org => {
         const tarjeta = document.createElement("div");
         tarjeta.classList.add("cajaong");
 
         const imagen = document.createElement("img");
         imagen.src = org.logo;
         imagen.alt = org.nombre;
-        imagen.onclick = function() {
-            sumarDonacion(org.nombre);
-        };
+        imagen.onclick = () => sumarDonacion(org.nombre);
 
         const nombre = document.createElement("p");
         nombre.textContent = org.nombre;
@@ -40,11 +36,9 @@ function mostrarOrganizaciones() {
         input.placeholder = "€ a donar";
         input.id = `don_${org.nombre}`;
 
-        tarjeta.appendChild(imagen);
-        tarjeta.appendChild(nombre);
-        tarjeta.appendChild(input);
+        tarjeta.append(imagen, nombre, input);
         contenedor.appendChild(tarjeta);
-    }
+    });
 }
 
 function sumarDonacion(nombre) {
@@ -56,9 +50,8 @@ function sumarDonacion(nombre) {
         return;
     }
 
-    const nuevaDonacion = { nombre: nombre, cantidad: cantidad };
+    const nuevaDonacion = { nombre, cantidad };
     donaciones.push(nuevaDonacion);
-
     mostrarDonaciones(nombre);
     input.value = "";
 }
@@ -67,17 +60,13 @@ function mostrarDonaciones(nombre) {
     const resumen = document.getElementById("resumen");
     resumen.innerHTML = "";
 
-    for (let i = 0; i < donaciones.length; i++) {
-        const don = donaciones[i];
+    donaciones.forEach(don => {
         const linea = document.createElement("div");
-        linea.textContent = don.nombre + " — " + don.cantidad.toFixed(2) + " €";
-
-        if (don.nombre === nombre) {
-            linea.classList.add("destacado");
-        }
-
+        linea.textContent = `${don.nombre} — ${don.cantidad.toFixed(2)} €`;
+        linea.style.padding = "8px 0";
+        if (don.nombre === nombre) linea.classList.add("destacado");
         resumen.appendChild(linea);
-    }
+    });
 
     ultimaOng = nombre;
 }
@@ -107,15 +96,13 @@ function finalizarTramite() {
     let totalFinal = 0;
     let totalDonaciones = 0;
 
-    for (let i = 0; i < agrupadas.length; i++) {
-        const d = agrupadas[i];
+    agrupadas.forEach(d => {
         totalFinal += d.importeTotal;
         totalDonaciones += d.numDonaciones;
-
         const linea = document.createElement("p");
         linea.textContent = `${d.nombre} ---- ${d.numDonaciones} donaciones --- ${d.aporteMedio.toFixed(2)}€ -- ${d.importeTotal.toFixed(2)}€`;
         resumenFinal.appendChild(linea);
-    }
+    });
 
     const totalLinea = document.createElement("p");
     totalLinea.textContent = `Aporte total: ${Math.floor(totalFinal * 100) / 100} €`;
@@ -128,8 +115,6 @@ function finalizarTramite() {
     resumenFinal.appendChild(mediaLinea);
 
     document.getElementById("botonoculto").appendChild(resumenFinal);
-
-    guardarTramiteEnJson(agrupadas, `${dia}/${mes}/${anio}, ${hora}:${minutos}`);
     mostrarVentanaEmergente(agrupadas);
 
     setTimeout(() => {
@@ -144,13 +129,13 @@ function finalizarTramite() {
 }
 
 function mostrarVentanaEmergente(donacionesAgrupadas) {
-    const ancho = 500;
-    const alto = 400;
-    const left = (screen.width / 2) - (ancho / 2);
-    const top = (screen.height / 2) - (alto / 2);
+    const ancho = 450;
+    const alto = 350;
+    const left = screen.width - ancho - 40;
+    const top = 40;
 
-    const ventana = window.open("", "ventanaDonaciones", 
-        `width=${ancho},height=${alto},left=${left},top=${top},resizable=yes`);
+    const ventana = window.open("", "ventanaDonaciones",
+        `width=${ancho},height=${alto},left=${left},top=${top},resizable=no`);
 
     let contenido = `
         <html>
@@ -175,19 +160,16 @@ function mostrarVentanaEmergente(donacionesAgrupadas) {
             </style>
         </head>
         <body>
-            <h2>Resumen de Causas Apoyadas</h2>
+            <h2>Causas Apoyadas</h2>
     `;
 
-    for (let i = 0; i < donacionesAgrupadas.length; i++) {
-        const nombre = donacionesAgrupadas[i].nombre;
-        const org = organizaciones.find(o => o.nombre === nombre);
-        if (org) {
-            contenido += `<p>${org.descripcion}</p>`;
-        }
-    }
+    donacionesAgrupadas.forEach(d => {
+        const org = organizaciones.find(o => o.nombre === d.nombre);
+        if (org) contenido += `<p>${org.descripcion}</p>`;
+    });
 
     contenido += `
-            <p style="text-align:center; margin-top:20px;">
+            <p style="text-align:left; margin-top:20px;">
                 (Esta ventana se cerrará automáticamente en 10 segundos)
             </p>
         </body>
@@ -197,72 +179,30 @@ function mostrarVentanaEmergente(donacionesAgrupadas) {
     ventana.document.write(contenido);
     ventana.document.close();
 
-    setTimeout(() => ventana.close(), 10000);
-}
-
-function guardarTramiteEnJson(donacionesAgrupadas, fechaCompleta) {
-    const idTramite = Math.random().toString(16).slice(2, 6);
-
-    const donacionesFormateadas = [];
-    for (let i = 0; i < donacionesAgrupadas.length; i++) {
-        const d = donacionesAgrupadas[i];
-        donacionesFormateadas.push({
-            nombre: d.nombre,
-            importeTotal: d.importeTotal,
-            numDonaciones: d.numDonaciones
-        });
-    }
-
-    const nuevoTramite = {
-        id: idTramite,
-        fecha: fechaCompleta,
-        donaciones: donacionesFormateadas
-    };
-
-    fetch("http://localhost:3000/tramiteDonacion", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(nuevoTramite)
-    })
-    .then(respuesta => respuesta.json())
-    .then(data => console.log("Trámite guardado correctamente:", data))
-    .catch(error => console.error("Error al guardar el trámite:", error));
+    setTimeout(() => {
+        ventana.close();
+        document.getElementById("resumen-final")?.remove();
+    }, 10000);
 }
 
 function agruparDonaciones() {
     const resultado = [];
-
-    for (let i = 0; i < donaciones.length; i++) {
-        const actual = donaciones[i];
-        let encontrada = false;
-
-        for (let j = 0; j < resultado.length; j++) {
-            if (resultado[j].nombre === actual.nombre) {
-                resultado[j].importeTotal += actual.cantidad;
-                resultado[j].numDonaciones += 1;
-                encontrada = true;
-                break;
-            }
-        }
-
-        if (!encontrada) {
+    donaciones.forEach(actual => {
+        const existente = resultado.find(r => r.nombre === actual.nombre);
+        if (existente) {
+            existente.importeTotal += actual.cantidad;
+            existente.numDonaciones += 1;
+        } else {
             resultado.push({
                 nombre: actual.nombre,
                 importeTotal: actual.cantidad,
                 numDonaciones: 1
             });
         }
-    }
-
-    for (let i = 0; i < resultado.length; i++) {
-        resultado[i].aporteMedio = resultado[i].importeTotal / resultado[i].numDonaciones;
-    }
-
+    });
+    resultado.forEach(r => r.aporteMedio = r.importeTotal / r.numDonaciones);
     resultado.sort((a, b) => b.nombre.localeCompare(a.nombre));
-
     return resultado;
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    cargarDatosDesdeJson();
-});
+document.addEventListener("DOMContentLoaded", cargarDatosDesdeJson);

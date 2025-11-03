@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestor de Donaciones</title>
     <link rel="stylesheet" href="./estilos/estilos.css">
 </head>
-
 <body>
-
-    <header>
-        <h1>GESTOR DE DONACIONES</h1>
-        <h2>Colabora con nuestras ONGs</h2>
-        <p>Una vez introducida tu aportación, haz click sobre el logo de las causas benéficas a las que quieres ayudar.</p>
-    </header>
-
     <main class="contenedor-principal">
-        <section id="zona-ongs" class="cajacontenedora"></section>
+        <section class="zona-izquierda">
+            <header>
+                <h1>GESTOR DE DONACIONES</h1>
+                <h2>Colabora con nuestras ONGs</h2>
+                <p>Una vez introducida tu aportación, haz click sobre el logo de las causas benéficas a las que quieres ayudar.</p>
+            </header>
+
+            <section id="zona-ongs" class="cajacontenedora"></section>
+
+            <section id="botonoculto">
+                <h3>Finaliza tu trámite de donaciones</h3>
+                <button onclick="finalizarTramite()">Finalizar Donaciones</button>
+                <div id="resumen-final"></div>
+            </section>
+        </section>
 
         <aside id="cajainfo">
             <h2>Tus aportaciones</h2>
@@ -26,13 +31,6 @@
         </aside>
     </main>
 
-    <section id="botonoculto">
-        <h3>Finaliza tu trámite de donaciones</h3>
-        <button onclick="finalizarTramite()">Finalizar Donaciones</button>
-        <div id="resumen-final"></div>
-    </section>
-
     <script src="./scripts/scripts.js"></script>
 </body>
-
 </html>

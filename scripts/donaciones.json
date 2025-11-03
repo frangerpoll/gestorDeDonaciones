@@ -528,6 +528,42 @@
           "numDonaciones": 1
         }
       ]
+    },
+    {
+      "id": "c4ae",
+      "fecha": "03/11/2025, 18:53",
+      "donaciones": [
+        {
+          "nombre": "UnJugueteUnaIlusion",
+          "importeTotal": 11,
+          "numDonaciones": 3
+        },
+        {
+          "nombre": "Unicef",
+          "importeTotal": 444444444444444460000,
+          "numDonaciones": 3
+        },
+        {
+          "nombre": "PayasosSinFronteras",
+          "importeTotal": 12,
+          "numDonaciones": 3
+        },
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 106,
+          "numDonaciones": 23
+        },
+        {
+          "nombre": "Caritas",
+          "importeTotal": 7,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 4,
+          "numDonaciones": 1
+        }
+      ]
     }
   ]
 }
