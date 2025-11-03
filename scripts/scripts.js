@@ -43,7 +43,6 @@ function mostrarOrganizaciones() {
         tarjeta.appendChild(imagen);
         tarjeta.appendChild(nombre);
         tarjeta.appendChild(input);
-
         contenedor.appendChild(tarjeta);
     }
 }
@@ -98,16 +97,13 @@ function finalizarTramite() {
     const anio = fecha.getFullYear();
     const hora = String(fecha.getHours()).padStart(2, "0");
     const minutos = String(fecha.getMinutes()).padStart(2, "0");
-    const segundos = String(fecha.getSeconds()).padStart(2, "0");
 
-    const fechaTexto = `Fecha de compra: ${dia}/${mes}/${anio} - ${hora}:${minutos}:${segundos}`;
-
+    const fechaTexto = `Fecha de compra: ${dia}/${mes}/${anio} - ${hora}:${minutos}`;
     const titulo = document.createElement("p");
     titulo.textContent = fechaTexto;
     resumenFinal.appendChild(titulo);
 
     const agrupadas = agruparDonaciones();
-
     let totalFinal = 0;
     let totalDonaciones = 0;
 
@@ -132,7 +128,76 @@ function finalizarTramite() {
     resumenFinal.appendChild(mediaLinea);
 
     document.getElementById("botonoculto").appendChild(resumenFinal);
-    guardarTramiteEnJson(agrupadas, `${dia}/${mes}/${anio}, ${hora}:${minutos}:${segundos}`);
+
+    guardarTramiteEnJson(agrupadas, `${dia}/${mes}/${anio}, ${hora}:${minutos}`);
+    mostrarVentanaEmergente(agrupadas);
+
+    setTimeout(() => {
+        document.getElementById("resumen").innerHTML = "";
+        document.getElementById("botonoculto").innerHTML = `
+            <h3>Finaliza tu trámite de donaciones</h3>
+            <button onclick="finalizarTramite()">Finalizar Donaciones</button>
+        `;
+        donaciones = [];
+        ultimaOng = null;
+    }, 10000);
+}
+
+function mostrarVentanaEmergente(donacionesAgrupadas) {
+    const ancho = 500;
+    const alto = 400;
+    const left = (screen.width / 2) - (ancho / 2);
+    const top = (screen.height / 2) - (alto / 2);
+
+    const ventana = window.open("", "ventanaDonaciones", 
+        `width=${ancho},height=${alto},left=${left},top=${top},resizable=yes`);
+
+    let contenido = `
+        <html>
+        <head>
+            <title>Resumen de Donaciones</title>
+            <style>
+                body {
+                    background-color: #ECEDB0;
+                    color: #F68537;
+                    font-family: Verdana, sans-serif;
+                    padding: 20px;
+                    text-align: left;
+                }
+                h2 {
+                    text-align: center;
+                    color: #F68537;
+                }
+                p {
+                    font-size: 14pt;
+                    margin-bottom: 10px;
+                }
+            </style>
+        </head>
+        <body>
+            <h2>Resumen de Causas Apoyadas</h2>
+    `;
+
+    for (let i = 0; i < donacionesAgrupadas.length; i++) {
+        const nombre = donacionesAgrupadas[i].nombre;
+        const org = organizaciones.find(o => o.nombre === nombre);
+        if (org) {
+            contenido += `<p>${org.descripcion}</p>`;
+        }
+    }
+
+    contenido += `
+            <p style="text-align:center; margin-top:20px;">
+                (Esta ventana se cerrará automáticamente en 10 segundos)
+            </p>
+        </body>
+        </html>
+    `;
+
+    ventana.document.write(contenido);
+    ventana.document.close();
+
+    setTimeout(() => ventana.close(), 10000);
 }
 
 function guardarTramiteEnJson(donacionesAgrupadas, fechaCompleta) {
@@ -155,23 +220,13 @@ function guardarTramiteEnJson(donacionesAgrupadas, fechaCompleta) {
     };
 
     fetch("http://localhost:3000/tramiteDonacion", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(nuevoTramite)
-        })
-        .then(respuesta => respuesta.json())
-        .then(data => {
-            console.log("Trámite guardado correctamente:", data);
-            alert("¡Donaciones guardadas con éxito! Gracias por tu colaboración.");
-            donaciones = [];
-            document.getElementById("resumen").innerHTML = "";
-        })
-        .catch(error => {
-            console.error("Error al guardar el trámite:", error);
-            alert("Hubo un error al guardar las donaciones. Por favor, inténtalo de nuevo.");
-        });
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nuevoTramite)
+    })
+    .then(respuesta => respuesta.json())
+    .then(data => console.log("Trámite guardado correctamente:", data))
+    .catch(error => console.error("Error al guardar el trámite:", error));
 }
 
 function agruparDonaciones() {
@@ -203,9 +258,7 @@ function agruparDonaciones() {
         resultado[i].aporteMedio = resultado[i].importeTotal / resultado[i].numDonaciones;
     }
 
-    resultado.sort(function(a, b) {
-        return b.nombre.localeCompare(a.nombre);
-    });
+    resultado.sort((a, b) => b.nombre.localeCompare(a.nombre));
 
     return resultado;
 }
