@@ -184,6 +184,40 @@ p {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.linea-resumen {
+    padding: 8px 0;
+}
+
+.resumen-centro {
+    text-align: center;
+}
+
+.oculto {
+    display: none;
+}
+
+.ventana-resumen {
+    background: #ECEDB0;
+    color: #F68537;
+    font-family: Verdana;
+    padding: 20px;
+}
+
+.ventana-resumen h2 {
+    text-align: center;
+}
+
+.ventana-resumen p {
+    font-size: 14pt;
+}
+
+.mensaje-cierre {
+    font-size: 12pt;
+    text-align: center;
+    margin-top: 20px;
+    opacity: 0.8;
+}
+
 @media (max-width: 1000px) {
     .cajacontenedora {
         grid-template-columns: repeat(3, 1fr);

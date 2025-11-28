@@ -564,6 +564,95 @@
           "numDonaciones": 1
         }
       ]
+    },
+    {
+      "id": "a6b36fc0-da95-4aeb-8f8f-497216288b5b",
+      "fecha": "28/11/2025, 17:09:55",
+      "donaciones": [
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 32,
+          "numDonaciones": 4
+        },
+        {
+          "nombre": "Caritas",
+          "importeTotal": 8,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "UnJugueteUnaIlusion",
+          "importeTotal": 16,
+          "numDonaciones": 2
+        }
+      ]
+    },
+    {
+      "id": "78c69f34-1c2e-4d27-bcf8-04d6469d5fc4",
+      "fecha": "28/11/2025, 17:13:15",
+      "donaciones": [
+        {
+          "nombre": "UnJugueteUnaIlusion",
+          "importeTotal": 5,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "Unicef",
+          "importeTotal": 5,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 10,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "Caritas",
+          "importeTotal": 5,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 25,
+          "numDonaciones": 5
+        }
+      ]
+    },
+    {
+      "id": "7d809009-5584-46df-a2c5-4f72b75bc2f0",
+      "fecha": "28/11/2025, 17:16:33",
+      "donaciones": [
+        {
+          "nombre": "ManosUnidas",
+          "importeTotal": 6,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "Caritas",
+          "importeTotal": 12,
+          "numDonaciones": 2
+        }
+      ]
+    },
+    {
+      "id": "bcffab71-690f-44c1-8075-ab9fb4faffc7",
+      "fecha": "28/11/2025, 17:18:21",
+      "donaciones": [
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 6,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 6,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "ADDA",
+          "importeTotal": 6,
+          "numDonaciones": 1
+        }
+      ]
     }
   ]
 }
