@@ -61,27 +61,18 @@ function actualizarResumen() {
     const contenedor = document.getElementById("resumen");
     contenedor.innerHTML = "";
 
-    const mapa = new Map();
-
-    donaciones.forEach(d => {
-        if (!mapa.has(d.nombre)) {
-            mapa.set(d.nombre, { importeTotal: 0, numDonaciones: 0 });
-        }
-        const actual = mapa.get(d.nombre);
-        actual.importeTotal += d.cantidad;
-        actual.numDonaciones += 1;
-    });
-
-    const entradas = Array.from(mapa.entries()).sort((a, b) => a[0].localeCompare(b[0]));
-
-    entradas.forEach(([nombre, datos]) => {
+    for (let i = donaciones.length - 1; i >= 0; i--) {
+        const d = donaciones[i];
         const linea = document.createElement("div");
         linea.classList.add("linea-resumen");
-        const aporteMedio = datos.importeTotal / datos.numDonaciones;
-        linea.textContent = `${nombre} — ${datos.numDonaciones} donaciones — ${aporteMedio.toFixed(2)} € — ${datos.importeTotal.toFixed(2)} €`;
-        if (nombre === ultimaOng) linea.classList.add("destacado");
+        linea.textContent = `${d.nombre} — ${d.cantidad.toFixed(2)} €`;
+        if (d.nombre === ultimaOng && i === donaciones.length - 1) linea.classList.add("destacado");
         contenedor.appendChild(linea);
-    });
+    }
+
+    if (contenedor.lastElementChild) {
+        contenedor.scrollTop = 0;
+    }
 }
 
 function finalizarTramite() {
@@ -91,12 +82,12 @@ function finalizarTramite() {
     }
 
     const resumenFinal = document.getElementById("resumen-final");
-    resumenFinal.innerHTML = "";
+    if (resumenFinal) resumenFinal.innerHTML = "";
 
     const fecha = new Date().toLocaleString("es-ES");
     const pFecha = document.createElement("p");
     pFecha.textContent = "Fecha del trámite: " + fecha;
-    resumenFinal.appendChild(pFecha);
+    if (resumenFinal) resumenFinal.appendChild(pFecha);
 
     const agrupadas = agruparDonaciones();
     let total = 0;
@@ -109,17 +100,17 @@ function finalizarTramite() {
         const linea = document.createElement("p");
         linea.textContent =
             `${d.nombre} — ${d.numDonaciones} donaciones — ${d.aporteMedio.toFixed(2)} € — ${d.importeTotal.toFixed(2)} €`;
-        resumenFinal.appendChild(linea);
+        if (resumenFinal) resumenFinal.appendChild(linea);
     });
 
     const totalP = document.createElement("p");
     totalP.textContent = "Aporte total: " + total.toFixed(2) + " €";
-    resumenFinal.appendChild(totalP);
+    if (resumenFinal) resumenFinal.appendChild(totalP);
 
     const mediaP = document.createElement("p");
     mediaP.textContent = "Aporte medio: " + (total / cantidadDonaciones).toFixed(2) + " €/donación";
     mediaP.classList.add("resumen-centro");
-    resumenFinal.appendChild(mediaP);
+    if (resumenFinal) resumenFinal.appendChild(mediaP);
 
     guardarTramiteEnServidor(agrupadas, fecha);
     mostrarVentanaEmergente(agrupadas);
@@ -127,8 +118,9 @@ function finalizarTramite() {
     setTimeout(() => {
         donaciones = [];
         ultimaOng = null;
-        document.getElementById("resumen").innerHTML = "";
-    }, 500);
+        const resumenCont = document.getElementById("resumen");
+        if (resumenCont) resumenCont.innerHTML = "";
+    }, 1000000);
 }
 
 function agruparDonaciones() {

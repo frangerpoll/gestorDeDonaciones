@@ -16,12 +16,6 @@
             </header>
 
             <section id="zona-ongs" class="cajacontenedora"></section>
-
-            <section id="botonoculto">
-                <h3>Finaliza tu trámite de donaciones</h3>
-                <button id="btn-finalizar">Finalizar Donaciones</button>
-                <div id="resumen-final"></div>
-            </section>
         </section>
 
         <aside id="cajainfo">
@@ -29,6 +23,19 @@
             <p>Aquí puedes ver el dinero aportado y la cantidad de veces que has donado.</p>
             <div id="resumen"></div>
         </aside>
+
+        <form id="formulario-donante" class="formulario-donante">
+            <div class="form-grid">
+                <div>
+                    <label for="nombre">Nombre:</label>
+                    <input id="nombre" name="nombre" type="text" placeholder="Nombre">
+                </div>
+                <div>
+                    <label for="apellidos">Apellidos:</label>
+                    <input id="apellidos" name="apellidos" type="text" placeholder="Apellidos">
+                </div>
+            </div>
+        </form>
     </main>
 
     <script src="./scripts/scripts.js"></script>

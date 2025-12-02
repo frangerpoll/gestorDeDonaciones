@@ -47,18 +47,17 @@ p {
 }
 
 .contenedor-principal {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: 70% 25%;
+    grid-template-rows: auto auto;
+    gap: 3%;
     width: 90%;
     max-width: 1900px;
     margin: 30px auto;
-    height: calc(80vh - 220px);
-    gap: 3%;
 }
 
 .cajacontenedora {
-    flex: 0 0 70%;
+    grid-column: 1;
     padding: 20px;
     background-color: #D6D85D;
     display: grid;
@@ -108,13 +107,12 @@ p {
 }
 
 #cajainfo {
-    flex: 0 0 25%;
+    grid-column: 2;
     background-color: #D6D85D;
     padding: 30px 10px;
-    overflow-y: auto;
-    height: 100vh;
-    box-sizing: border-box;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
 }
 
 #resumen {
@@ -126,115 +124,65 @@ p {
     margin: 20px auto 0;
     width: 90%;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 6px;
+    overflow-y: auto;
+    max-height: 100%;
 }
 
-#botonoculto {
-    text-align: center;
-    margin: 50px auto;
-    padding: 25px;
+.formulario-donante {
+    grid-column: 1 / span 2;
     width: 80%;
-    max-width: 600px;
+    margin: 20px auto 0;
     background-color: #D6D85D;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-#botonoculto h3 {
-    color: #F68537;
-    margin-bottom: 15px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-
-#botonoculto button {
-    background-color: #EAD8A4;
-    color: #F68537;
-    font-size: 16pt;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-#botonoculto button:hover {
-    background-color: #F68537;
-    color: #D6D85D;
-    transform: scale(1.05);
-}
-
-.destacado {
-    background-color: #F68537 !important;
-    color: #ECEDB0 !important;
-    transition: 0.5s;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-#resumen-final {
-    background-color: #EAD8A4;
-    color: #F68537;
-    margin-top: 25px;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: end;
+}
+
+.form-grid label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-size: 20pt;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    line-height: 1.8em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
 }
 
-.linea-resumen {
-    padding: 8px 0;
+.form-grid input {
+    width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background: #fff;
+    color: #333;
 }
 
-.resumen-centro {
-    text-align: center;
-}
-
-.oculto {
-    display: none;
-}
-
-.ventana-resumen {
-    background: #ECEDB0;
-    color: #F68537;
-    font-family: Verdana;
-    padding: 20px;
-}
-
-.ventana-resumen h2 {
-    text-align: center;
-}
-
-.ventana-resumen p {
-    font-size: 14pt;
-}
-
-.mensaje-cierre {
-    font-size: 12pt;
-    text-align: center;
-    margin-top: 20px;
-    opacity: 0.8;
-}
-
-@media (max-width: 1000px) {
-    .cajacontenedora {
-        grid-template-columns: repeat(3, 1fr);
-    }
+@media(max-width:1000px) {
     .contenedor-principal {
-        flex-direction: column;
-        gap: 20px;
-        height: auto;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
     }
     #cajainfo {
-        flex: 0 0 auto;
+        grid-column: 1;
         width: 100%;
+    }
+    .formulario-donante {
+        width: 90%;
+        grid-column: 1;
     }
 }
 
-@media (max-width: 600px) {
+@media(max-width:600px) {
     .cajacontenedora {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
+    }
+    .form-grid {
+        grid-template-columns: 1fr;
     }
 }

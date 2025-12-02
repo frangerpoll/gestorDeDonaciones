@@ -653,6 +653,48 @@
           "numDonaciones": 1
         }
       ]
+    },
+    {
+      "id": "e2ba4cea-7901-4166-bf6f-b23bba046f5b",
+      "fecha": "30/11/2025, 17:11:55",
+      "donaciones": [
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 8,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "AmigosDeLaTierra",
+          "importeTotal": 9,
+          "numDonaciones": 2
+        },
+        {
+          "nombre": "ADDA",
+          "importeTotal": 13,
+          "numDonaciones": 3
+        }
+      ]
+    },
+    {
+      "id": "57127226-9528-404d-907c-7e620dc31a12",
+      "fecha": "30/11/2025, 17:12:47",
+      "donaciones": [
+        {
+          "nombre": "PayasosSinFronteras",
+          "importeTotal": 3,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "PACMA",
+          "importeTotal": 3,
+          "numDonaciones": 1
+        },
+        {
+          "nombre": "IntermonOxfam",
+          "importeTotal": 3,
+          "numDonaciones": 1
+        }
+      ]
     }
   ]
 }
