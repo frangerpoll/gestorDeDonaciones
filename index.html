@@ -24,18 +24,75 @@
             <div id="resumen"></div>
         </aside>
 
-        <form id="formulario-donante" class="formulario-donante">
-            <div class="form-grid">
-                <div>
-                    <label for="nombre">Nombre:</label>
-                    <input id="nombre" name="nombre" type="text" placeholder="Nombre">
-                </div>
-                <div>
-                    <label for="apellidos">Apellidos:</label>
-                    <input id="apellidos" name="apellidos" type="text" placeholder="Apellidos">
+        <div class="formulario-donante">
+    <form id="form-donante">
+        <div class="form-grid">
+
+            <div>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" required minlength="4" maxlength="15">
+            </div>
+
+            <div>
+                <label for="apellidos">Apellidos</label>
+                <input type="text" id="apellidos" required>
+            </div>
+
+            <div>
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" required>
+            </div>
+
+            <div>
+                <label for="email">Correo Electrónico</label>
+                <input type="email" id="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" title="Introduce un correo válido, por ejemplo usuario@dominio.com">
+            </div>
+
+            <div class="linea-opcion">
+                <label>Métodos de pago</label>
+                <div class="opciones-inline">
+                    <label class="opcion-radio">
+                        <input type="radio" name="metodo" value="tarjeta" required>
+                        <span>Tarjeta</span>
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="metodo" value="transferencia">
+                        <span>Transferencia</span>
+                    </label>
                 </div>
             </div>
-        </form>
+
+            <div class="linea-opcion">
+                <label>¿Es socio?</label>
+                <div class="opciones-inline">
+                    <label class="opcion-radio">
+                        <input type="radio" name="socio" value="si" id="socio-si">
+                        <span>Sí</span>
+                    </label>
+                    <label class="opcion-radio">
+                        <input type="radio" name="socio" value="no" id="socio-no" checked>
+                        <span>No</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="caja-codigo" class="oculto">
+                <label for="codigo-socio">Código socio</label>
+                <input type="text" id="codigo-socio" pattern="^[A-Za-z]{3}[0-9]{4}[\/_.#&]$">
+            </div>
+
+            <div></div>
+
+            <div class="botones">
+                <button id="btn-enviar" type="submit">Realizar Donación</button>
+                <button id="btn-limpiar" type="reset">Limpiar Formulario</button>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+
     </main>
 
     <script src="./scripts/scripts.js"></script>

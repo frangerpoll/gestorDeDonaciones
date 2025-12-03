@@ -210,3 +210,90 @@ document.addEventListener("DOMContentLoaded", () => {
         if (btn) btn.addEventListener("click", finalizarTramite);
     }
 });
+
+const form = document.getElementById("formulario-donante");
+const btnLimpiar = document.getElementById("btn-limpiar");
+const socioRadios = document.getElementsByName("socio");
+const cajaCodigo = document.getElementById("caja-codigo");
+
+socioRadios.forEach(r => {
+    r.addEventListener("change", () => {
+        if (r.value === "si") {
+            cajaCodigo.style.display = "block";
+            document.getElementById("codigo").setAttribute("required", "true");
+        } else {
+            cajaCodigo.style.display = "none";
+            document.getElementById("codigo").removeAttribute("required");
+            document.getElementById("codigo").value = "";
+        }
+    });
+});
+
+btnLimpiar.addEventListener("click", () => {
+    form.reset();
+    cajaCodigo.style.display = "none";
+    limpiarErrores();
+});
+
+form.addEventListener("submit", (e) => {
+    limpiarErrores();
+    let errores = [];
+
+    const nombre = document.getElementById("nombre");
+    if (nombre.value.length < 4 || nombre.value.length > 15) {
+        marcarError("label-nombre");
+        errores.push("El nombre debe tener entre 4 y 15 caracteres.");
+    }
+
+    const apellidos = document.getElementById("apellidos");
+    if (apellidos.value.trim() === "") {
+        marcarError("label-apellidos");
+        errores.push("El campo Apellidos no puede estar vacío.");
+    }
+
+    const direccion = document.getElementById("direccion");
+    if (direccion.value.trim() === "") {
+        marcarError("label-direccion");
+        errores.push("El campo Dirección es obligatorio.");
+    }
+
+    const email = document.getElementById("email");
+    if (!email.checkValidity()) {
+        marcarError("label-email");
+        errores.push("El correo electrónico no tiene un formato válido.");
+    }
+
+    const pago = document.querySelector("input[name='pago']:checked");
+    if (!pago) {
+        marcarError("label-metodo");
+        errores.push("Debe seleccionar un método de pago.");
+    }
+
+    const socio = document.querySelector("input[name='socio']:checked");
+    if (!socio) {
+        marcarError("label-socio");
+        errores.push("Debe indicar si es socio.");
+    }
+
+    if (socio && socio.value === "si") {
+        const codigo = document.getElementById("codigo");
+        const patron = /^[A-Za-z]{3}[0-9]{4}[\/_.#&]$/;
+        if (!patron.test(codigo.value)) {
+            marcarError("label-codigo");
+            errores.push("El código de socio debe tener 3 letras, 4 números y un símbolo final (/_.#&).");
+        }
+    }
+
+    if (errores.length > 0) {
+        e.preventDefault();
+        alert(errores.join("\n"));
+    }
+});
+
+function marcarError(id) {
+    document.getElementById(id).classList.add("error-label");
+}
+
+function limpiarErrores() {
+    document.querySelectorAll(".error-label").forEach(l => l.classList.remove("error-label"));
+}

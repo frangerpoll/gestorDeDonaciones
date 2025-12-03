@@ -2,6 +2,7 @@ body {
     background-color: #ECEDB0;
     margin: 0;
     text-align: center;
+    padding-bottom: 40px;
 }
 
 h1 {
@@ -164,6 +165,75 @@ p {
     border-radius: 10px;
     background: #fff;
     color: #333;
+}
+
+.form-grid .radios {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#caja-codigo input {
+    width: 70%;
+}
+
+.botones {
+    grid-column: span 2;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.botones button {
+    width: 45%;
+    padding: 12px;
+    font-size: 14pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #F68537;
+    color: white;
+    transition: 0.2s;
+}
+
+.botones button:hover {
+    background-color: #EAD8A4;
+    color: black;
+}
+
+label.error-label {
+    color: red !important;
+}
+
+.oculto {
+    display: none;
+}
+
+.linea-opcion {
+    display: flex;
+    flex-direction: column;
+}
+
+.opciones-inline {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.opcion-radio {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14pt;
+    color: white;
+}
+
+.opcion-radio input[type="radio"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #F68537;
+    cursor: pointer;
 }
 
 @media(max-width:1000px) {
