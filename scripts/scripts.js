@@ -4,6 +4,7 @@ const URL_TRAMITES = "http://localhost:3000/tramiteDonacion";
 let organizaciones = [];
 let donaciones = [];
 let ultimaOng = null;
+let ongActiva = null;
 
 function cargarOrganizaciones() {
     fetch(URL_ORGANIZACIONES)
@@ -52,7 +53,10 @@ function sumarDonacion(nombre) {
     }
 
     donaciones.push({ nombre, cantidad });
+
     ultimaOng = nombre;
+    ongActiva = nombre;
+
     actualizarResumen();
     input.value = "";
 }
@@ -66,7 +70,12 @@ function actualizarResumen() {
         const linea = document.createElement("div");
         linea.classList.add("linea-resumen");
         linea.textContent = `${d.nombre} — ${d.cantidad.toFixed(2)} €`;
-        if (d.nombre === ultimaOng && i === donaciones.length - 1) linea.classList.add("destacado");
+
+        if (d.nombre === ongActiva) {
+            linea.style.backgroundColor = "#ECEDB0";
+            linea.style.color = "#F68537";
+        }
+
         contenedor.appendChild(linea);
     }
 
@@ -118,6 +127,7 @@ function finalizarTramite() {
     setTimeout(() => {
         donaciones = [];
         ultimaOng = null;
+        ongActiva = null;
         const resumenCont = document.getElementById("resumen");
         if (resumenCont) resumenCont.innerHTML = "";
     }, 1000000);

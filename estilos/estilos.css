@@ -113,21 +113,24 @@ p {
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    height: 60vh;
 }
 
 #resumen {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     background: #F68537;
     color: #D6D85D;
-    font-size: 18pt;
+    font-size: 14pt;
     font-weight: bold;
     text-align: left;
     margin: 20px auto 0;
-    width: 90%;
+    width: 80%;
     padding: 20px;
     border-radius: 6px;
     overflow-y: auto;
-    max-height: 100%;
+    flex-grow: 1;
 }
+
 
 .formulario-donante {
     grid-column: 1 / span 2;
