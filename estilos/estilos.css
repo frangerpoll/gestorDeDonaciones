@@ -236,6 +236,11 @@ label.error-label {
     cursor: pointer;
 }
 
+.error {
+    border: 2px solid red !important;
+}
+
+
 @media(max-width:1000px) {
     .contenedor-principal {
         grid-template-columns: 1fr;
@@ -258,4 +263,60 @@ label.error-label {
     .form-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* --------- ESTILOS DE resumen.html --------- */
+
+body.ventana-resumen {
+    background: #ECEDB0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #F68537;
+    margin: 10px;
+}
+
+.ventana-resumen h2 {
+    text-align: center;
+    color: #F68537;
+    margin-bottom: 12px;
+}
+
+#contenedor-texto {
+    max-height: 180px;
+    overflow-y: auto;
+    padding: 6px;
+    background: #EAD8A4;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.fila {
+    margin: 6px 0;
+    color: #333;
+}
+
+.fila.fecha {
+    font-weight: bold;
+    color: #F68537;
+}
+
+.botones-resumen {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.botones-resumen button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: #F68537;
+    color: #D6D85D;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.botones-resumen button:hover {
+    background: #EAD8A4;
+    color: #D6D85D;
 }
