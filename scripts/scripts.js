@@ -263,7 +263,7 @@ form.addEventListener("submit", (e) => {
         errores.push("El correo electrónico no tiene un formato válido.");
     }
 
-    const pago = document.querySelector("input[name='pago']:checked");
+    const pago = document.querySelector("input[name='metodo']:checked");
     if (!pago) {
         marcarError("label-metodo");
         errores.push("Debe seleccionar un método de pago.");
@@ -290,10 +290,15 @@ form.addEventListener("submit", (e) => {
     }
 });
 
-function marcarError(id) {
-    document.getElementById(id).classList.add("error-label");
+function marcarError(labelId) {
+    const label = document.getElementById(labelId);
+    const input = document.querySelector(`#${label.getAttribute("for")}`);
+
+    if (label) label.classList.add("error-label");
+    if (input) input.classList.add("error");
 }
 
 function limpiarErrores() {
     document.querySelectorAll(".error-label").forEach(l => l.classList.remove("error-label"));
+    document.querySelectorAll(".error").forEach(i => i.classList.remove("error"));
 }

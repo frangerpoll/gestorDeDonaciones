@@ -236,6 +236,13 @@ label.error-label {
     cursor: pointer;
 }
 
+.error-label {
+    color: red !important;
+    border: 2px solid red !important;
+    padding: 3px;
+    border-radius: 6px;
+}
+
 .error {
     border: 2px solid red !important;
 }

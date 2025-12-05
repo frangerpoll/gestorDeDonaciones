@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -25,31 +26,31 @@
         </aside>
 
         <div class="formulario-donante">
-    <form id="form-donante">
+    <form id="formulario-donante">
         <div class="form-grid">
 
             <div>
-                <label for="nombre">Nombre</label>
+                <label id="label-nombre" for="nombre">Nombre</label>
                 <input type="text" id="nombre" required minlength="4" maxlength="15">
             </div>
 
             <div>
-                <label for="apellidos">Apellidos</label>
+                <label id="label-apellidos" for="apellidos">Apellidos</label>
                 <input type="text" id="apellidos" required>
             </div>
 
             <div>
-                <label for="direccion">Dirección</label>
+                <label id="label-direccion" for="direccion">Dirección</label>
                 <input type="text" id="direccion" required>
             </div>
 
             <div>
-                <label for="email">Correo Electrónico</label>
-                <input type="email" id="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" title="Introduce un correo válido, por ejemplo usuario@dominio.com">
+                <label id="label-email" for="email">Correo Electrónico</label>
+                <input type="email" id="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}">
             </div>
 
             <div class="linea-opcion">
-                <label>Métodos de pago</label>
+                <label id="label-metodo">Métodos de pago</label>
                 <div class="opciones-inline">
                     <label class="opcion-radio">
                         <input type="radio" name="metodo" value="tarjeta" required>
@@ -63,7 +64,7 @@
             </div>
 
             <div class="linea-opcion">
-                <label>¿Es socio?</label>
+                <label id="label-socio">¿Es socio?</label>
                 <div class="opciones-inline">
                     <label class="opcion-radio">
                         <input type="radio" name="socio" value="si" id="socio-si">
@@ -77,8 +78,8 @@
             </div>
 
             <div id="caja-codigo" class="oculto">
-                <label for="codigo-socio">Código socio</label>
-                <input type="text" id="codigo-socio" pattern="^[A-Za-z]{3}[0-9]{4}[\/_.#&]$">
+                <label id="label-codigo" for="codigo">Código socio</label>
+                <input type="text" id="codigo" pattern="^[A-Za-z]{3}[0-9]{4}[\/_.#&]$">
             </div>
 
             <div></div>
@@ -91,7 +92,6 @@
         </div>
     </form>
 </div>
-
 
     </main>
 
